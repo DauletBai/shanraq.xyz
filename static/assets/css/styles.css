@@ -47,3 +47,37 @@ a {
 .shadow, .text-shadow, box-shadow {
   text-shadow: 0 .5rem 1rem rgba(0, 0, 0, .9);
 }
+
+/* Стили для контейнера визуализаторов */
+.visualizer-container {
+    width: 80%; /* Ширина контейнера */
+    max-width: 600px; /* Максимальная ширина */
+    /* Центрирование уже обеспечивается flexbox в main */
+}
+
+/* Общие стили для полос-визуализаторов */
+.visualizer-bar {
+    height: 2px; /* Высота полоски (было 1px, можно изменить) */
+    width: 100%; /* Ширина на весь контейнер */
+    background-color: rgba(255, 255, 255, 0.6); /* Цвет полоски (полупрозрачный белый) */
+    border-radius: 1px; /* Небольшое скругление */
+    /* transition: all 0.1s ease-out; */ /* Плавность для будущей анимации (пока закомментировано) */
+}
+
+/* Если нужен отступ ровно 5rem вместо mb-5 */
+/* #ai-visualizer {
+    margin-bottom: 5rem;
+} */
+
+/* Стили для будущей анимации (пример - можно будет доработать) */
+/*
+#ai-visualizer.active {
+    background-color: #0dcaf0; // Цвет ИИ (голубой)
+    transform: scaleY(5); // Пример увеличения высоты
+}
+
+#user-visualizer.active {
+    background-color: #198754; // Цвет пользователя (зеленый)
+    transform: scaleY(5); // Пример увеличения высоты
+}
+*/

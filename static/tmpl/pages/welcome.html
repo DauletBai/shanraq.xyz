@@ -1,13 +1,13 @@
+<!-- static/tmpl/pages/welcome.html -->
 {{define "title"}}Welcome{{end}}
 
 {{define "description"}}{{.Config.Description}}{{end}}
 
 {{define "main"}}
-<main class="px-3">
-    <div class="text-center mx-auto my-auto">
-         <p class="lead text-shadow">{{ .Config.Mission }}</p>
-         <p class="lead text-shadow">Green button for voice communication with AI.</p>
-         {{ template "chat" . }}
+<main class="px-3 d-flex flex-column justify-content-center align-items-center h-100">
+    <div class="visualizer-container">
+        <div id="ai-visualizer" class="visualizer-bar mb-5"></div>
+        <div id="user-visualizer" class="visualizer-bar"></div>
     </div>
 </main>
 {{end}}
