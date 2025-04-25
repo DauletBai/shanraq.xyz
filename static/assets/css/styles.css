@@ -5,7 +5,7 @@ html, body {
   overflow: hidden;
 }
 
-.chat-container, .form-control {
+.form-control {
   top: 0;
   width: 100%;
   z-index: 1000;
@@ -45,23 +45,21 @@ a {
 }
 
 .shadow, .text-shadow, box-shadow {
-  text-shadow: 0 .5rem 1rem rgba(0, 0, 0, .9);
+  text-shadow: 0 .2rem .5rem rgba(0, 0, 0, .9);
 }
 
-/* Стили для контейнера визуализаторов */
 .visualizer-container {
-    width: 80%; /* Ширина контейнера */
-    max-width: 600px; /* Максимальная ширина */
-    /* Центрирование уже обеспечивается flexbox в main */
+    width: 80%; 
+    max-width: 460px; 
 }
 
-/* Общие стили для полос-визуализаторов */
 .visualizer-bar {
-    height: 2px; /* Высота полоски (было 1px, можно изменить) */
-    width: 100%; /* Ширина на весь контейнер */
-    background-color: rgba(255, 255, 255, 0.6); /* Цвет полоски (полупрозрачный белый) */
-    border-radius: 1px; /* Небольшое скругление */
-    /* transition: all 0.1s ease-out; */ /* Плавность для будущей анимации (пока закомментировано) */
+    height: 3px; 
+    width: 100%; 
+    background-color: rgba(255, 255, 255, 0.4); 
+    border-radius: 1px;
+    text-shadow: 0 1rem 2rem rgba(0, 0, 0, .9);
+    /* transition: all 0.1s ease-out; */ /* Плавность для будущей анимации */
 }
 
 /* Если нужен отступ ровно 5rem вместо mb-5 */

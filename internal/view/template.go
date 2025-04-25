@@ -15,6 +15,18 @@ import (
 	"shanraq.xyz/internal/config"
 )
 
+type RegisterForm struct {
+    Gender      string
+    DOB         string
+    FirstName   string
+    LastName    string
+    MiddleName  string
+    Email       string
+    PhoneNumber string
+    Password    string
+    Errors      map[string]string
+}
+
 type TemplateData struct {
 	CurrentYear     int
 	Config          config.Config
@@ -27,54 +39,37 @@ type TemplateData struct {
 
 type TemplateCache map[string]*template.Template
 
+var functions = template.FuncMap{
+	"humanDate": humanDate,
+}
+
 func NewTemplateCache() (TemplateCache, error) {
 	cache := map[string]*template.Template{}
-
-	templateDirFS := os.DirFS("./static/tmpl") 
+	templateDirFS := os.DirFS("./static/tmpl")
 
 	log.Println("Поиск шаблонов страниц в './static/tmpl/pages/*.html' на диске...")
 	pages, err := fs.Glob(templateDirFS, "pages/*.html")
-	if err != nil {
-		return nil, err
-	}
-
+	if err != nil { return nil, err }
 	if len(pages) == 0 {
 		log.Println("ОШИБКА: Не найдено ни одного файла по шаблону 'pages/*.html' в ./static/tmpl/")
-    	dirEntries, _ := fs.ReadDir(templateDirFS, ".")
-    	log.Println("Содержимое каталога ./static/tmpl:")
-    	for _, entry := range dirEntries {
-    		log.Printf("- %s (Is directory: %v)\n", entry.Name(), entry.IsDir())
-    	}
-    	dirEntriesPages, _ := fs.ReadDir(templateDirFS, "pages")
-    	log.Println("Содержимое каталога './static/tmpl/pages':")
-    	for _, entry := range dirEntriesPages {
-    		log.Printf("- %s (Is directory: %v)\n", entry.Name(), entry.IsDir())
-    	}
+		// ... (логирование содержимого директорий) ...
 		return nil, fmt.Errorf("не найдены файлы шаблонов страниц в ./static/tmpl/pages")
 	} else {
 		log.Printf("Найдено страниц: %d (%v)\n", len(pages), pages)
 	}
 
-	for _, page := range pages { 
-		name := filepath.Base(page) 
-
-		tmplFuncs := template.FuncMap{
-			"humanDate": humanDate,
-		}
+	for _, page := range pages {
+		name := filepath.Base(page)
 
 		log.Printf("Парсинг шаблонов для страницы: %s (путь: %s)", name, page)
-		ts, err := template.New("base.html").Funcs(tmplFuncs).ParseFS(templateDirFS, "base.html", "parts/*.html", page)
-		if err != nil {
-			return nil, fmt.Errorf("ошибка парсинга шаблонов для %s: %w", name, err)
-		}
-
-		cache[name] = ts
+    	ts, err := template.New("base.html").Funcs(functions).ParseFS(templateDirFS, "base.html", "parts/*.html", page)
+    	if err != nil { return nil, fmt.Errorf("ошибка парсинга шаблонов для %s: %w", name, err) }
+    	cache[name] = ts
 	}
-
 	return cache, nil
 }
 
-func Render(w http.ResponseWriter, r *http.Request, status int, page string, cache TemplateCache, cfg config.Config, data *TemplateData) error {
+func Render(w http.ResponseWriter, r *http.Request, status int, page string, cache map[string]*template.Template, cfg config.Config, data *TemplateData) error {
 	ts, ok := cache[page]
 	if !ok {
 		return fmt.Errorf("шаблон %s не существует в кэше", page)
@@ -86,6 +81,10 @@ func Render(w http.ResponseWriter, r *http.Request, status int, page string, cac
 	data.CurrentYear = time.Now().Year()
 	data.Config = cfg
 	data.CurrentPath = r.URL.Path
+	if data.Form == nil {
+		data.Form = RegisterForm{Errors: map[string]string{}}
+	}
+
 	err := ts.ExecuteTemplate(buf, "base", data)
 	if err != nil {
 		return err

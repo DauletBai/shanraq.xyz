@@ -9,7 +9,8 @@
 			{{template "main" .}}
 			{{template "footer" .}}
 		</div>
-		<script src="assets/js/bootstrap.bundle.min.js"></script>
+        {{ template "auth_offcanvas" . }}
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 		<script src="https://unpkg.com/lume@0.3.0-alpha.11/dist/global.js"></script>
 		<script src="assets/js/universe.js"></script>
 		<script src="assets/js/earth.js"></script>

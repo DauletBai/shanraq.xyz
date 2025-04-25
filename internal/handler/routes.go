@@ -11,7 +11,7 @@ import (
 func (h *Handler) Routes(staticAssetFS http.FileSystem) http.Handler {
 	mux := chi.NewRouter()
 
-	mux.Use(middleware.Recoverer)
+    mux.Use(middleware.Recoverer)
 	mux.Use(middleware.RequestID)
 	mux.Use(middleware.RealIP)
 	mux.Use(middleware.Logger)
@@ -23,7 +23,10 @@ func (h *Handler) Routes(staticAssetFS http.FileSystem) http.Handler {
 	mux.Get("/", h.Home)
 	mux.Get("/welcome", h.Welcome)
 	mux.Get("/login", h.LoginGet)
+	// mux.Post("/login", h.LoginPost)
+	mux.Post("/register", h.RegisterPost)
 	mux.Get("/dashboard", h.Dashboard)
+	// mux.Post("/logout", h.LogoutPost)
 
 	mux.NotFound(h.notFound)
 

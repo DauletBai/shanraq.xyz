@@ -95,13 +95,9 @@
         </h3>
         <nav class="nav nav-underline justify-content-center float-md-end">
             {{if .IsAuthenticated}}
-                <a class="nav-link text-white-50 py-1 ps-2{{if eq .CurrentPath "/dashboard"}} active{{end}}" href="/dashboard">Панель</a>
-                <form action="/logout" method="POST" class="d-inline">
-                    <button type="submit" class="nav-link text-white-50 py-1 ps-2 border-0 bg-transparent">Выход</button>
-                </form>
-            {{else}}
+                {{else}}
                 <a class="nav-link text-white-50 py-1 ps-2{{if or (eq .CurrentPath "/") (eq .CurrentPath "/welcome") }} active{{end}}" aria-current="page" href="/welcome">Welcome</a>
-                <a class="nav-link text-white-50 py-1 ps-2{{if eq .CurrentPath "/login"}} active{{end}}" href="/login" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Login</a>
+                <a class="nav-link text-white-50 py-1 ps-2" href="#" data-bs-toggle="offcanvas" data-bs-target="#authOffcanvas" aria-controls="authOffcanvas">Login</a>
             {{end}}
         </nav>
     </div>
