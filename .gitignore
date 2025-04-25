@@ -1,0 +1,17 @@
+# Compiled executable files
+/bin/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test coverage profilre
+*.out
+
+# Environment variables file (если будете использовать)
+.env
+
+# OS-specific files
+.DS_Store
+Thumbs.db

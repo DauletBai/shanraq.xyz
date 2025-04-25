@@ -1,0 +1,31 @@
+// internal/handler/routes.go
+package handler
+
+import (
+	"net/http"
+
+	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/chi/v5/middleware"
+)
+
+func (h *Handler) Routes(staticAssetFS http.FileSystem) http.Handler {
+	mux := chi.NewRouter()
+
+	mux.Use(middleware.Recoverer)
+	mux.Use(middleware.RequestID)
+	mux.Use(middleware.RealIP)
+	mux.Use(middleware.Logger)
+	mux.Use(middleware.Compress(5))
+
+	fileServer := http.FileServer(staticAssetFS)
+	mux.Handle("/assets/*", http.StripPrefix("/assets/", fileServer))
+
+	mux.Get("/", h.Home)
+	mux.Get("/welcome", h.Welcome)
+	mux.Get("/login", h.LoginGet)
+	mux.Get("/dashboard", h.Dashboard)
+
+	mux.NotFound(h.notFound)
+
+	return mux
+}

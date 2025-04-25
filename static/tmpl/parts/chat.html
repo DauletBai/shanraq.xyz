@@ -1,0 +1,16 @@
+{{define "chat"}}
+<div class="chat-container border rounded-3 p-3 my-2" style="height: 200px; overflow-y: scroll;">
+    <div class="lead message received text-shadow mb-2">
+        <span class="lead badge bg-primary p-2 me-2">AI</span> Hello! I am your AI family doctor. How can I help you?
+    </div>
+    </div>
+<div class="input-group mt-3">
+    <input type="text" class="form-control lead" placeholder="Enter your message or use voice..." aria-label="Chat input">
+    <button class="btn btn-lg btn-primary" type="button" id="sendMessageButton">
+        <i class="bi bi-send"></i>
+    </button>
+    <button class="btn btn-lg btn-success" type="button" id="voiceInputButton">
+        <i class="bi bi-mic"></i>
+    </button>
+</div>
+{{end}}

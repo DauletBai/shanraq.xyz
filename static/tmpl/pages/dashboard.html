@@ -1,0 +1,30 @@
+{{define "title"}}Dashboard{{end}}
+
+{{define "description"}}Панель управления вашего AI-доктора Shanraq{{end}}
+
+{{define "main"}}
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4"> {{/* Добавлен класс для макета dashboard из примеров Bootstrap */}}
+    {{/* Убираем вложенный define "content" - его содержимое теперь просто часть "main" */}}
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Панель Управления</h1>
+        {{/* Можно добавить кнопки или другие элементы сюда */}}
+    </div>
+
+    {{/* Содержимое, которое было внутри define "content" */}}
+    <div class="row">
+        {{/* Сайдбар, вероятно, не нужен внутри основного контента dashboard,
+             он должен быть частью base.html или общего макета dashboard.
+             Если он нужен здесь, раскомментируйте или переместите {{template "sidebar" .}}
+             из base.html сюда (но это менее типично) */}}
+        {{/* <div class="col-md-4">
+            {{ template "sidebar" . }}
+        </div> */}}
+        <div class="col-md-12"> {{/* Или col-md-8, если сайдбар отображается рядом */}}
+            <h2>Чат с доктором</h2>
+            {{ template "chat" . }} {{/* Вставляем чат */}}
+        </div>
+        {{/* Здесь можно добавить другие элементы dashboard */}}
+    </div>
+
+</main>
+{{end}}

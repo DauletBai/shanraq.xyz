@@ -1,0 +1,13 @@
+{{define "title"}}Welcome{{end}}
+
+{{define "description"}}{{.Config.Description}}{{end}}
+
+{{define "main"}}
+<main class="px-3">
+    <div class="text-center mx-auto my-auto">
+         <p class="lead text-shadow">{{ .Config.Mission }}</p>
+         <p class="lead text-shadow">Green button for voice communication with AI.</p>
+         {{ template "chat" . }}
+    </div>
+</main>
+{{end}}

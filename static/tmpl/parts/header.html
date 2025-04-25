@@ -1,0 +1,109 @@
+{{define "header"}}
+<header class="mb-auto">
+    <div>
+        <h3 class="float-md-start mb-0">
+            <svg class="rounded-circle heartbeat mb-lg-5" width="32" height="32" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+            <!-- Stroke линии (Параллельные, 45 градусов влево) -->
+            <line class="stroke" x1="75" y1="75" x2="325" y2="325" />
+            <line class="stroke" x1="125" y1="25" x2="375" y2="275" />
+            <line class="stroke" x1="25" y1="125" x2="275" y2="375" />
+            <!-- Stroke линии (Параллельные, 45 градусов вправо) -->
+            <line class="stroke" x1="75" y1="325" x2="325" y2="75" />
+            <line class="stroke" x1="125" y1="375" x2="375" y2="125" />
+            <line class="stroke" x1="25" y1="275" x2="275" y2="25" />
+            <!-- Анимация крови -->
+            <line class="flow flow-1" x1="75" y1="75" x2="325" y2="325" />
+            <line class="flow flow-2" x1="125" y1="25" x2="375" y2="275" />
+            <line class="flow flow-3" x1="25" y1="125" x2="275" y2="375" />
+            <line class="flow flow-4" x1="75" y1="325" x2="325" y2="75" />
+            <line class="flow flow-5" x1="125" y1="375" x2="375" y2="125" />
+            <line class="flow flow-6" x1="25" y1="275" x2="275" y2="25" />
+            <style>
+                .stroke {
+                fill: none;
+                stroke: rgba(255, 255, 255, .25);
+                stroke-width: 45;
+                stroke-linecap: round;
+                }
+            
+                .flow {
+                fill: none;
+                stroke: rgba(255, 255, 255, .8);
+                stroke-width: 30;
+                stroke-linecap: round;
+                stroke-dasharray: 60;
+                stroke-dashoffset: 120;
+                animation-duration: 1.5s;
+                animation-timing-function: ease-in-out;
+                animation-iteration-count: infinite;
+                }
+            
+                .flow-1, .flow-4 {
+                animation-name: bloodFlowForward;
+                }
+            
+                .flow-2, .flow-3, .flow-5, .flow-6 {
+                animation-name: bloodFlowReverse;
+                }
+            
+                @keyframes bloodFlowForward {
+                0% {
+                    stroke-dashoffset: 120;
+                    opacity: 0.6;
+                }
+                50% {
+                    stroke-dashoffset: 60;
+                    opacity: 0.9;
+                }
+                100% {
+                    stroke-dashoffset: 0;
+                    opacity: 0.6;
+                }
+                }
+            
+                @keyframes bloodFlowReverse {
+                0% {
+                    stroke-dashoffset: 0;
+                    opacity: 0.6;
+                }
+                50% {
+                    stroke-dashoffset: 60;
+                    opacity: 0.9;
+                }
+                100% {
+                    stroke-dashoffset: 120;
+                    opacity: 0.6;
+                }
+                }
+            
+                /* ❤️ Биение сердца */
+                .heartbeat {
+                animation: heartbeat 1.8s ease-in-out infinite;
+                transform-origin: center;
+                }
+            
+                @keyframes heartbeat {
+                0%   { transform: scale(1); }
+                14%  { transform: scale(1.1); }
+                28%  { transform: scale(1); }
+                42%  { transform: scale(1.08); }
+                70%  { transform: scale(1); }
+                100% { transform: scale(1); }
+                }
+            </style>
+            </svg>
+        </h3>
+        <nav class="nav nav-underline justify-content-center float-md-end">
+            {{if .IsAuthenticated}}
+                <a class="nav-link text-white-50 py-1 ps-2{{if eq .CurrentPath "/dashboard"}} active{{end}}" href="/dashboard">Панель</a>
+                <form action="/logout" method="POST" class="d-inline">
+                    <button type="submit" class="nav-link text-white-50 py-1 ps-2 border-0 bg-transparent">Выход</button>
+                </form>
+            {{else}}
+                <a class="nav-link text-white-50 py-1 ps-2{{if or (eq .CurrentPath "/") (eq .CurrentPath "/welcome") }} active{{end}}" aria-current="page" href="/welcome">Welcome</a>
+                <a class="nav-link text-white-50 py-1 ps-2{{if eq .CurrentPath "/login"}} active{{end}}" href="/login" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Login</a>
+            {{end}}
+        </nav>
+    </div>
+</header>
+{{end}}
