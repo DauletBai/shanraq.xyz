@@ -15,3 +15,8 @@
 # OS-specific files
 .DS_Store
 Thumbs.db
+
+# SQLite database file
+shanraq.db
+*.db
+*.db-journal

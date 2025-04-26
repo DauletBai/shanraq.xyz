@@ -27,6 +27,11 @@ type RegisterForm struct {
     Errors      map[string]string
 }
 
+type LoginForm struct {
+    Email    string
+    Password string // Пароль не храним после обработки!
+    Errors   map[string]string
+}
 type TemplateData struct {
 	CurrentYear     int
 	Config          config.Config
